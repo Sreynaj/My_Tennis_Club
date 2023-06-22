@@ -95,3 +95,10 @@ def finance_data_view_show_image(request):
     twrv.start()
     img = twrv.join()
     return HttpResponse(img)
+  if request.method == 'POST':
+    ticker = request.POST['ticker']
+    #end_year = request.POST['end_year']
+    twrv = ThreadWithReturnValue(target=test, args=(ticker))
+    twrv.start()
+    img = twrv.join()
+    return HttpResponse(img)

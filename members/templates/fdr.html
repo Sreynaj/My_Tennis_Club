@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,43 @@
     <h2></h2>
     <form method="post" id="fdr_form">
         {% csrf_token %}
-        <input type="text" id="start_year" name="start_year" value="" placeholder="start year">
-        <input type="text" id="end_year" name="end_year" value="" placeholder="end year">
+                <select id="ticker" name=""ticker>
+            <option value="M2">M2</option>
+            <option value="NASDAQCOM">NASDAQCOM</option>
+            <option value="UMCSENT">UMCSENT</option>
+
+          </select>
+
+          <!-- Selection Options Year-->
+          <select id="start_year" name="start_year">
+            <option value="" disabled selected>Start Year</option>
+          </select>
+          
+          <select id="end_year" name="end_year">
+            <option value="" disabled selected>End Year</option>
+          </select>
+          
+          <script>
+            var startYear = 2004;
+            var endYear = 2024;
+            var startYearSelect = document.getElementById("start_year");
+            var endYearSelect = document.getElementById("end_year");
+          
+            for (var year = startYear; year <= endYear; year++) {
+              var option = document.createElement("option");
+              option.value = year;
+              option.text = year;
+              startYearSelect.add(option);
+          
+              var option = document.createElement("option");
+              option.value = year;
+              option.text = year;
+              endYearSelect.add(option);
+            }
+          </script>
+
+        <!--<input type="text" id="start_year" name="start_year" value="" placeholder="start year">
+        <input type="text" id="end_year" name="end_year" value="" placeholder="end year">-->
         <button type="submit" class="btn_View">View</button>
         
     </form>
@@ -35,6 +71,10 @@
                 data:{
                     start_year:$('#start_year').val(),
                     end_year:$('#end_year').val(),
+                    M2:$('#M2').val(),
+                    NASDAQCOM:$('#NASDAQCOM').val(),
+                    UMCSENT:$('#UMCSENT').val(),
+
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
 
                 },
