@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- jquery-3.7.0.min.js -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <h2></h2>
+    <form method="post" id="fdr_form">
+        {% csrf_token %}
+        <input type="text" id="start_year" name="start_year" value="" placeholder="start year">
+        <input type="text" id="end_year" name="end_year" value="" placeholder="end year">
+        <button type="submit" class="btn_View">View</button>
+        
+    </form>
+    
+    <img id="myimage" src="data:image/png;base64, {{value}}" alt="Red dot" />
+
+    
+
+</body>
+
+    <script type="text/javascript">
+        $(document).on('submit','#fdr_form',function(e){
+            e.preventDefault();
+            
+            $.ajax({
+                type: 'POST',
+                url:'/fdr_show_image',
+                data:{
+                    start_year:$('#start_year').val(),
+                    end_year:$('#end_year').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+
+                },
+                success: function(data){
+                    $("#myimage").attr("src","data:image/jpg;base64," + data);
+                }
+            });
+        });
+    </script>
+</html>
+
